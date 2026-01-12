@@ -1,159 +1,283 @@
-🚀 React Native Posts App — Assessment Project
+📱 React Native Posts App
+A High-Quality Expo + TypeScript Application
 
-A simple React Native app built using Expo, featuring:
+This project is a clean, production-ready React Native application built using Expo, following industry-standard architecture and best practices.
 
-Fetching posts from an API
+It demonstrates:
 
-Search with instant filtering
+API integration using Axios
 
-Search persistence using AsyncStorage
+Real-time search with debouncing
 
-Offline detection using NetInfo
+Persistent storage using AsyncStorage
 
-Toast notifications
+Offline detection & robust error handling
 
 Pull-to-refresh
 
-Error handling (offline, network, server errors)
+Modular and scalable component architecture
 
-This project fulfills all requirements of the React Native Intern Combined Assessment.
+Full TypeScript type-safety
 
-📸 Features Overview
-✔ 1. Fetch Posts
+✨ Features Overview
+🔍 1. Fetch & Display Posts
 
-Fetches posts from:
+Data fetched from: https://jsonplaceholder.typicode.com/posts
+
+Clean UI using NativeWind (TailwindCSS)
+
+Rendered with FlatList
+
+⚡ 2. Instant Search (Debounced)
+
+Case-insensitive search
+
+Runs with 300ms debounce
+
+Smooth performance even with large data
+
+💾 3. Persistent Search Storage
+
+Search text stored using AsyncStorage
+
+Automatically restored on app restart
+
+Filter applied instantly after reload
+
+📶 4. Full Offline Handling
+
+Uses NetInfo to detect connectivity & handles:
+
+offline → No internet
+
+server → API returned error
+
+network → DNS/device network issue
+
+Includes:
+
+Dedicated error UI
+
+Retry button
+
+Toast notifications
+
+🔄 5. Pull-to-Refresh Support
+
+Native pull gesture
+
+Works both online/offline
+
+Proper loading indicators
+
+♻️ 6. Reusable, Modular Components
+
+PostCard – displays a single post
+
+ErrorState – unified error UI
+
+Loading – full-screen loader
+
+Easy to scale and maintain.
+
+🧱 7. Scalable Architecture
+
+Organized by screens, components, services, and types
+
+Consistent TypeScript usage
+
+Industry-standard folder structure
+
+📂 Project Structure
+
+app/
+│
+├── screens/
+│   └── PostsScreen.tsx         # Main screen
+│
+├── components/
+│   ├── PostCard.tsx            # Renders single post
+│   ├── ErrorState.tsx          # Offline / server / network error UI
+│   └── Loading.tsx             # Loader
+│
+├── services/
+│   ├── axiosInstance.ts        # Axios client
+│   └── api.ts                  # fetchPostsAPI()
+│
+└── types/
+    └── post.ts                 # Post type definition
+
+
+🚀 Getting Started
+
+🔽 Clone Repository
+git clone <repository-url>
+
+Navigate into the project folder:
+cd <project-folder>
+
+1. Install dependencies
+npm install
+
+2. Start development server (Expo)
+npx expo start
+
+🌐 API Used
+Endpoint
+GET /posts
 https://jsonplaceholder.typicode.com/posts
 
-Displays a clean list with title + body.
+Response Type
+export type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
 
-✔ 2. Search
+🧪 Test Cases (Assessment Ready)
+✅ 1. API Fetch Test
 
-Real-time search with debouncing (300ms).
+App loads posts successfully
 
-Case-insensitive filtering.
+Loading indicator displays
 
-Empty search shows all posts.
+No errors
 
-✔ 3. Save Search (AsyncStorage)
+✅ 2. Search Functionality Test
 
-Typed search is saved automatically.
+Filters instantly
 
-When the app restarts:
+Case-insensitive
 
-Search box auto-fills
+Clearing search restores full list
 
-Filter is applied instantly
+✅ 3. Persistent Search Test
 
-✔ 4. Error Handling
+Enter search
 
-Handles all error cases:
+Close app
 
-Condition	App Behavior
-No Internet	Offline screen + Retry button + Toast
-Server Error (4xx/5xx)	Error screen + Retry
-Network Error	Error screen + Retry
-No results	“No posts found.”
-✔ 5. Pull To Refresh
+Re-open → search auto-restored
 
-Built-in pull-to-refresh support.
+✅ 4. Offline Mode Test (Requires Dev Build)
 
-Works correctly even in offline mode.
+Disable Wi-Fi + Mobile Data
 
-🛠️ Tech Stack
+Open app
+
+Expect:
+
+Toast: “No Internet”
+
+Offline error UI
+
+Retry button
+
+Pull-to-refresh → offline error
+
+✅ 5. Server Error Test
+
+Modify baseURL temporarily → expect:
+
+Toast: “Server Error”
+
+Server error UI
+
+✅ 6. Network Error Test
+
+Break endpoint → expect:
+
+Toast: “Something went wrong”
+
+Network error UI
+
+✅ 7. Pull-to-Refresh Test
+
+Refreshes posts
+
+Shows top loader
+
+Offline → displays correct errors
+
+✅ 8. No Results Test
+
+Search: abcdefxyz123
+
+Expect:
+
+“No posts found.”
+
+🧩 Component Summary
+🟦 PostCard.tsx
+
+Clean UI for each post
+
+Strong type-checking with Post
+
+🟥 ErrorState.tsx
+
+Unified error UI for:
+
+Offline
+
+Server
+
+Network errors
+
+Includes a retry button.
+
+🟩 Loading.tsx
+
+Full-screen activity indicator
+
+Reused across screens
+
+🔌 Services Layer
+axiosInstance.ts
+
+Centralized Axios configuration
+Handles base URL + timeout.
+
+api.ts
+
+Exports the function:
+
+fetchPostsAPI()
+
+Used by PostsScreen.
+
+🧑‍💻 Tech Stack
 
 React Native (Expo)
 
-NativeWind (Tailwind CSS for RN)
+TypeScript
+
+Axios
 
 AsyncStorage
 
 NetInfo
 
+NativeWind (TailwindCSS)
+
 React Native Toast Message
 
-📦 Installation & Setup
+🎨 UI & UX Notes
 
-1️⃣ Clone the project
+Modern, consistent UI
 
-git clone <repo-url>
-cd <folder>
+Smooth state transitions
 
+Production-grade error handling
 
-2️⃣ Install dependencies
+Clean separation of concerns
 
-npm install
-
-
-3️⃣ Start the project
-
-npx expo start
-
-4️⃣ Run on device
-
-Scan the QR code using Expo Go
-
-Or press a to open Android emulator
-
-Or press w to open Web version
-
-🧪 Testing Guide
-✔ Fetch & UI
-
-App loads posts
-
-Cards display title + body
-
-✔ Search
-
-Type text → list filters instantly
-
-Case-insensitive
-
-No results → shows empty message
-
-✔ Search Persistence
-
-Type search
-
-Close Expo Go
-
-Reopen → search auto-filled
-
-✔ Offline Mode
-
-Turn OFF Wi-Fi + Data
-
-App shows offline screen
-
-Retry works when online again
-
-✔ Pull-to-refresh
-
-Pull down → posts reload
-
-Works even offline
-
-✔ Error Handling
-
-Server error → shows server error UI
-
-Network error → shows network error UI
-
-All errors show Toast + Retry
-
-📁 Folder Structure
-
-/app
-  └── index.tsx
-  └── PostsScreen.tsx
-/components
-  └── (optional future components)
-/assets
-tailwind.config.js
-package.json
-README.md
-
-👨‍💻 Author
+👤 Author
 
 Neeraj P C
-React Native Developer Intern (Assessment Project)
+Full Stack Developer
+
+📄 License
+
+This project is open-source and available under the MIT License.
